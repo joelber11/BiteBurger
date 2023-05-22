@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/principal_white"
+    tools:context=".DatosPersonalesActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/personalDataToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        app:title="Datos personales"
+        app:titleTextAppearance="@style/Toolbar_text"
+        app:titleTextColor="@color/principal_white"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fredoka_one"
+            android:text="Datos personales"
+            android:textAlignment="textStart"
+            android:textColor="@color/meat_brown"
+            android:textSize="30sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/EditText_Nombre"
+            android:textColorHint="@color/meat_brown"
+            app:boxBackgroundColor="@color/principal_white"
+            app:boxStrokeColor="@color/meat_brown"
+            app:boxStrokeWidth="2dp"
+            app:shapeAppearance="@style/Rounded">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/nameAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Nombre del usuario"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textColor="@color/meat_brown"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,EditableContentDescCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/EditText_Apellidos"
+            android:textColorHint="@color/meat_brown"
+            app:boxBackgroundColor="@color/principal_white"
+            app:boxStrokeColor="@color/meat_brown"
+            app:boxStrokeWidth="2dp"
+            app:shapeAppearance="@style/Rounded">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/surnameAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Apellidos del usuario"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textColor="@color/meat_brown"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,EditableContentDescCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/EditText_BirthDate"
+            android:textColorHint="@color/meat_brown"
+            app:boxBackgroundColor="@color/principal_white"
+            app:boxStrokeColor="@color/meat_brown"
+            app:boxStrokeWidth="2dp"
+            app:shapeAppearance="@style/Rounded">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/birthdateAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Fecha de nacimiento del usuario"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textColor="@color/meat_brown"
+                android:inputType="date"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,EditableContentDescCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/EditText_Email"
+            android:textColorHint="@color/meat_brown"
+            app:boxBackgroundColor="@color/principal_white"
+            app:boxStrokeColor="@color/meat_brown"
+            app:boxStrokeWidth="2dp"
+            app:shapeAppearance="@style/Rounded">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Email de nacimiento del usuario"
+                android:enabled="false"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textColor="@color/meat_brown"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,EditableContentDescCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/EditText_Telephone"
+            android:textColorHint="@color/meat_brown"
+            app:boxBackgroundColor="@color/principal_white"
+            app:boxStrokeColor="@color/meat_brown"
+            app:boxStrokeWidth="2dp"
+            app:shapeAppearance="@style/Rounded">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/telephoneAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Número de teléfono del usuario"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textColor="@color/meat_brown"
+                android:inputType="number"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,EditableContentDescCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Switch
+                android:id="@+id/switch_Communications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Quiero estar al día de las nuevas ofertas y experiencias de Bite Burger® y recibir comunicaciones comerciales Bite Burger®"
+                android:textAlignment="viewStart" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <Button
+            android:id="@+id/signInBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:backgroundTint="@color/meat_brown"
+            android:fontFamily="@font/fredoka_one"
+            android:onClick="btnActualizar"
+            android:text="@string/Btn_GuardarCambios"
+            android:textColor="@color/principal_white"
+            android:textSize="18dp" />
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

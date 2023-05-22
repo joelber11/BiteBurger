@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/rounded_layout"
+    android:backgroundTint="@color/principal_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/btnCloseFoodDetails"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="13dp"
+            app:srcCompat="@drawable/ic_cross_close"
+            app:tint="@color/meat_brown" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="8dp" />
+
+        <ImageView
+            android:id="@+id/detailsFoodImage"
+            android:layout_width="match_parent"
+            android:layout_height="163dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/detailsFoodName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fredoka_one"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp"
+            android:text="TextView"
+            android:textColor="@color/meat_brown"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/detailsFoodDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:paddingLeft="15dp"
+            android:text="TextView"
+            android:textColor="@color/meat_brown" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/detailsFoodPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:gravity="right"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="20,45 €"
+            android:textColor="@color/meat_brown" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+    </LinearLayout>
+
+</LinearLayout>

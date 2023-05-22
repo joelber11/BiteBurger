@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/principal_white"
+    android:orientation="vertical"
+    tools:context=".ConseguirPuntosActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/pointsToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        app:title="Como conseguir puntos"
+        app:titleTextAppearance="@style/Toolbar_text"
+        app:titleTextColor="@color/principal_white"
+        tools:ignore="MissingConstraints" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="30dp">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka_one"
+                android:paddingBottom="10dp"
+                android:text="Ventajas exclusivas de Bite Burger +"
+                android:textAlignment="textStart"
+                android:textColor="@color/meat_brown"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="40dp"
+                android:text="Solo por ser parte de Bite Burger + podrás deisfrutar de productos gratis, premios y descuentos en tus pedidos y compras."
+                android:textAlignment="viewStart"
+                android:textColor="@color/meat_brown" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka_one"
+                android:paddingBottom="10dp"
+                android:text="¿Todavía no tienes puntos?"
+                android:textAlignment="textStart"
+                android:textColor="@color/meat_brown"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:text="1. Por cada euro de tu pedido ganarás 100 puntos que podrás canjear por ofertas y descuentos exclusivos."
+                android:textAlignment="viewStart"
+                android:textColor="@color/meat_brown" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka_one"
+                android:paddingBottom="20dp"
+                android:text="1€ = 100 ptos."
+                android:textAlignment="center"
+                android:textColor="@color/meat_brown"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:text="2. Recuerda escanear el Bite Burger ID que encontrarás en tu cuenta cuando compres en nuestros restaurantes."
+                android:textAlignment="viewStart"
+                android:textColor="@color/meat_brown" />
+
+            <ImageView
+                android:id="@+id/imageView16"
+                android:layout_width="wrap_content"
+                android:layout_height="92dp"
+                android:layout_weight="0"
+                android:paddingBottom="50dp"
+                android:scaleX="1"
+                android:scaleY="1"
+                app:srcCompat="@drawable/codigo_qr_512dp"
+                app:tint="@color/meat_brown" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka_one"
+                android:paddingBottom="10dp"
+                android:text="¿Tienes preguntas?"
+                android:textAlignment="center"
+                android:textColor="@color/meat_brown"
+                android:textSize="22sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/meat_brown"
+                android:paddingBottom="10dp" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka_one"
+                android:paddingBottom="10dp"
+                android:text="1. ¿Puedo participar sin estar registrado en Bite Burger +?"
+                android:textAlignment="textStart"
+                android:textColor="@color/meat_brown"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No. Solo los usuarios registrados pueden participar. Pero no te preocupes porque ser parte de Bite Burger + es totalmente gratuito."
+                android:textAlignment="viewStart"
+                android:textColor="@color/meat_brown" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/meat_brown"
+                android:paddingBottom="10dp" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka_one"
+                android:paddingBottom="10dp"
+                android:text="2. ¿Puedo acumular coronas o redimir ofertas sin estar registrado?"
+                android:textAlignment="textStart"
+                android:textColor="@color/meat_brown"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No, siempre deberás estar registrado"
+                android:textAlignment="viewStart"
+                android:textColor="@color/meat_brown" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/meat_brown"
+                android:paddingBottom="10dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

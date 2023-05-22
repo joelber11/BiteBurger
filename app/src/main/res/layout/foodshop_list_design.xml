@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/rounded_layout"
+            android:backgroundTint="@color/md_theme_dark_secondary"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgFoodShop"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0"
+                tools:srcCompat="@tools:sample/avatars"
+                android:background="@drawable/round_image" />
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingEnd="10dp">
+
+                <TextView
+                    android:id="@+id/foodNameShop"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:fontFamily="@font/fredoka_one"
+                    android:gravity="center_vertical"
+                    android:text="Nombre de hamburguesa"
+                    android:textColor="@color/meat_brown"
+                    android:textSize="26sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/foodPriceShop"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/nunito_sans_semibold"
+                        android:gravity="start"
+                        android:text="20,35 €"
+                        android:textColor="@color/principal_white"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/btnAddCartFoodShop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/lightDark_brown"
+                        android:fontFamily="@font/fredoka_one"
+                        android:padding="11dp"
+                        android:textColor="@color/principal_white"
+                        tools:text="Añadir" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/principal_white"
+    tools:context=".SignUpActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fredoka_one"
+            android:text="Crea tu cuenta"
+            android:textAlignment="textStart"
+            android:textColor="@color/meat_brown"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:text="En menos de lo que das un bocado"
+            android:textAlignment="textStart"
+            android:textColor="@color/meat_brown"
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/EditText_Nombre"
+            android:textColorHint="@color/meat_brown"
+            app:boxBackgroundColor="@color/principal_white"
+            app:boxStrokeColor="@color/meat_brown"
+            app:boxStrokeWidth="2dp"
+            app:shapeAppearance="@style/Rounded">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/nameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Nombre del usuario"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textColor="@color/meat_brown"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,EditableContentDescCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/EditText_Apellidos"
+            android:textColorHint="@color/meat_brown"
+            app:boxBackgroundColor="@color/principal_white"
+            app:boxStrokeColor="@color/meat_brown"
+            app:boxStrokeWidth="2dp"
+            app:shapeAppearance="@style/Rounded">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/surnameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Apellidos del usuario"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textColor="@color/meat_brown"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,EditableContentDescCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/EditText_Email"
+            android:textColorHint="@color/meat_brown"
+            app:boxBackgroundColor="@color/principal_white"
+            app:boxStrokeColor="@color/meat_brown"
+            app:boxStrokeWidth="2dp"
+            app:shapeAppearance="@style/Rounded">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Apellidos del usuario"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textColor="@color/meat_brown"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,EditableContentDescCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/EditText_BirthDate"
+            android:textColorHint="@color/meat_brown"
+            app:boxBackgroundColor="@color/principal_white"
+            app:boxStrokeColor="@color/meat_brown"
+            app:boxStrokeWidth="2dp"
+            app:shapeAppearance="@style/Rounded">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/birhtDateEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Fecha de nacimiento"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textColor="@color/meat_brown"
+                android:ems="10"
+                android:inputType="date"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,EditableContentDescCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/EditText_Password"
+            android:textColorHint="@color/meat_brown"
+            app:boxBackgroundColor="@color/principal_white"
+            app:boxStrokeColor="@color/meat_brown"
+            app:boxStrokeWidth="2dp"
+            app:endIconMode="password_toggle"
+            app:shapeAppearance="@style/Rounded"
+            app:endIconTint="@color/meat_brown">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Contraseña del usuario"
+                android:textColor="@color/meat_brown"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
+
+        <Button
+            android:id="@+id/signInBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/meat_brown"
+            android:fontFamily="@font/fredoka_one"
+            android:onClick="createNewUser"
+            android:text="Crear cuenta"
+            android:textColor="@color/principal_white"
+            android:textSize="18dp" />
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

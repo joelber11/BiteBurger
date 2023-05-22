@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/order_navigation"
+    app:startDestination="@id/seleccionarCategoriaPedidoFragment">
+
+    <fragment
+        android:id="@+id/seleccionarCategoriaPedidoFragment"
+        android:name="com.jbm.biteburgerv2.uiOrderProcedure.SeleccionarCategoriaPedidoFragment"
+        android:label="fragment_seleccionar_categoria_pedido"
+        tools:layout="@layout/fragment_seleccionar_categoria_pedido" >
+        <action
+            android:id="@+id/action_seleccionarCategoriaPedidoFragment_to_seleccionarProductoPedidoFragment"
+            app:destination="@id/seleccionarProductoPedidoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/seleccionarProductoPedidoFragment"
+        android:name="com.jbm.biteburgerv2.uiOrderProcedure.SeleccionarProductoPedidoFragment"
+        android:label="fragment_seleccionar_producto_pedido"
+        tools:layout="@layout/fragment_seleccionar_producto_pedido" >
+        <action
+            android:id="@+id/action_seleccionarProductoPedidoFragment_to_seleccionarCategoriaPedidoFragment"
+            app:destination="@id/seleccionarCategoriaPedidoFragment" />
+        <action
+            android:id="@+id/action_seleccionarProductoPedidoFragment_to_seleccionarSoloMenuHamburguesaFragment"
+            app:destination="@id/seleccionarSoloMenuHamburguesaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/seleccionarSoloMenuHamburguesaFragment"
+        android:name="com.jbm.biteburgerv2.uiOrderProcedure.SeleccionarSoloMenuHamburguesaFragment"
+        android:label="fragment_seleccionar_solo_menu_hamburguesa"
+        tools:layout="@layout/fragment_seleccionar_solo_menu_hamburguesa" >
+        <action
+            android:id="@+id/action_seleccionarSoloMenuHamburguesaFragment_to_seleccionarCategoriaPedidoFragment"
+            app:destination="@id/seleccionarCategoriaPedidoFragment" />
+        <action
+            android:id="@+id/action_seleccionarSoloMenuHamburguesaFragment_to_seleccionarAcompananteFragment"
+            app:destination="@id/seleccionarAcompananteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/seleccionarAcompananteFragment"
+        android:name="com.jbm.biteburgerv2.uiOrderProcedure.SeleccionarAcompananteFragment"
+        android:label="fragment_seleccionar_acompanante"
+        tools:layout="@layout/fragment_seleccionar_acompanante" >
+        <action
+            android:id="@+id/action_seleccionarAcompananteFragment_to_seleccionarBebidaFragment"
+            app:destination="@id/seleccionarBebidaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/seleccionarBebidaFragment"
+        android:name="com.jbm.biteburgerv2.uiOrderProcedure.SeleccionarBebidaFragment"
+        android:label="fragment_seleccionar_bebida"
+        tools:layout="@layout/fragment_seleccionar_bebida" >
+        <action
+            android:id="@+id/action_seleccionarBebidaFragment_to_seleccionarCategoriaPedidoFragment"
+            app:destination="@id/seleccionarCategoriaPedidoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/revisarPedidoFragment"
+        android:name="com.jbm.biteburgerv2.uiPaymentProcedure.RevisarPedidoFragment"
+        android:label="fragment_revisar_pedido"
+        tools:layout="@layout/fragment_revisar_pedido" />
+</navigation>

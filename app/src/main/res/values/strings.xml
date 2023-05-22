@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Bite Burger®</string>
+    <string name="app_version">1.4.7</string>
+    <string name="my_linkedin">https://bit.ly/linkedin-jbm</string>
+
+    <string name="EditText_Email">Email</string>
+    <string name="EditText_Password">Contraseña</string>
+    <string name="EditText_Nombre">Nombre</string>
+    <string name="EditText_Apellidos">Apellidos</string>
+    <string name="EditText_BirthDate">Fecha de nacimiento</string>
+    <string name="EditText_Telephone">Número de teléfono</string>
+
+    <string name="title_home">Inicio</string>
+    <string name="title_menu">Carta</string>
+    <string name="title_account">Cuenta</string>
+
+    <!-- Account fragment -->
+    <string name="AccountFragment_DatosPersonales">Datos personales</string>
+    <string name="AccountFragment_Direcciones">Direcciones de envío</string>
+    <string name="AccountFragment_MetodsPago">Métodos de pago</string>
+    <string name="AccountFragment_Pedidos">Mis pedidos</string>
+    <string name="AccountFragment_AcercaDe">Acerca de</string>
+
+    <!-- Botones -->
+    <string name="Btn_CerrarSesion">Cerrar sesión</string>
+    <string name="Btn_GuardarCambios">Guardar cambios</string>
+
+    <!-- Menú carta -->
+    <string-array name="foodmenu">
+        <item>Hamburguesas</item>
+        <item>Snacks/entrantes</item>
+        <item>Bebidas</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

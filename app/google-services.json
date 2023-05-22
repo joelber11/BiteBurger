@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "271614003956",
+    "project_id": "bite-burger-b3497",
+    "storage_bucket": "bite-burger-b3497.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271614003956:android:d8c8a1e324a0180609eca1",
+        "android_client_info": {
+          "package_name": "com.jbm.biteburger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271614003956-rtfkv8omh700uare20tmek2isktdj8m3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSGLKKc0iqWo23nu8yDr3sRA6DkqEMBdM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271614003956-rtfkv8omh700uare20tmek2isktdj8m3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271614003956:android:ff033e4895ffe24009eca1",
+        "android_client_info": {
+          "package_name": "com.jbm.biteburgerv2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271614003956-rtfkv8omh700uare20tmek2isktdj8m3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSGLKKc0iqWo23nu8yDr3sRA6DkqEMBdM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271614003956-rtfkv8omh700uare20tmek2isktdj8m3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

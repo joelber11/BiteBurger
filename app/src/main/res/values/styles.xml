@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Rounded" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50dp</item>
+    </style>
+
+    <style name="Button_Rounded" parent="Widget.AppCompat.Button">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50dp</item>
+        <item name="fontFamily">@font/fredoka_one</item>
+        <item name="backgroundColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Toolbar_text">
+        <item name="fontFamily">@font/fredoka_one</item>
+        <item name="android:textSize">23dp</item>
+        <item name="titleTextColor">@color/principal_white</item>
+    </style>
+
+</resources>
