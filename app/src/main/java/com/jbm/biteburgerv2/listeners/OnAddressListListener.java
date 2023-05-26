@@ -6,5 +6,7 @@ import com.jbm.biteburgerv2.data.Address;
 import java.util.ArrayList;
 
 public interface OnAddressListListener {
-    void onComplete(ArrayList<Address> addressList, AdapterAddressList adaptador);
+    default void onComplete(ArrayList<Address> addressList, AdapterAddressList adaptador) {
+        adaptador.updateData(addressList);
+    }
 }

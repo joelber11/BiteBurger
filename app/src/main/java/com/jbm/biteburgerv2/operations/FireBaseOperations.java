@@ -16,10 +16,12 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.AggregateQuery;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
@@ -29,6 +31,7 @@ import com.jbm.biteburgerv2.adapters.AdapterFoodMenu;
 import com.jbm.biteburgerv2.adapters.AdapterFoodMenuShop;
 import com.jbm.biteburgerv2.adapters.AdapterFoodShop;
 import com.jbm.biteburgerv2.adapters.AdapterFoodSummary;
+import com.jbm.biteburgerv2.adapters.AdapterOffersList;
 import com.jbm.biteburgerv2.adapters.AdapterOrderSummary;
 import com.jbm.biteburgerv2.data.*;
 import com.jbm.biteburgerv2.listeners.*;
@@ -36,6 +39,7 @@ import com.jbm.biteburgerv2.listeners.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -129,10 +133,53 @@ public class FireBaseOperations {
         tipos.put("Hamburguesas", "burgers");
         tipos.put("Snacks/entrantes", "snacks-starters");
         tipos.put("Bebidas", "drinks");
+        tipos.put("Ofertas", "offers");
 
         tipos.put("burgers", "burgers");
         tipos.put("snacks-starters", "snacks-starters");
         tipos.put("drinks", "drinks");
+        tipos.put("offers", "offers");
+
+        String tipoBD = tipos.get(tipo);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference foodRef = db.collection(tipoBD);
+
+        // Recorrer la colección
+        foodRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Food food = new Food(
+                            document.getId(),
+                            document.getString("name").toString(),
+                            document.getString("desc").toString(),
+                            document.getDouble("price"),
+                            document.getString("image"));
+
+                    foodList.add(food);
+                }
+
+                listener.onComplete(foodList, adaptador); // Aquí se llama al método onComplete del listener
+            } else {
+                Log.d(TAG, "Error al obtener los documentos: ", task.getException());
+            }
+        });
+    }
+
+    public static void listTypeFood(String tipo, AdapterOffersList adaptador, OnOffersListListener listener) {
+
+        ArrayList<Food> foodList = new ArrayList<Food>();
+
+        Map<String, String> tipos = new HashMap<>();
+        tipos.put("Hamburguesas", "burgers");
+        tipos.put("Snacks/entrantes", "snacks-starters");
+        tipos.put("Bebidas", "drinks");
+        tipos.put("Ofertas", "offers");
+
+        tipos.put("burgers", "burgers");
+        tipos.put("snacks-starters", "snacks-starters");
+        tipos.put("drinks", "drinks");
+        tipos.put("offers", "offers");
 
         String tipoBD = tipos.get(tipo);
 
@@ -173,6 +220,7 @@ public class FireBaseOperations {
         tipos.put("burgers", "burgers");
         tipos.put("snacks-starters", "snacks-starters");
         tipos.put("drinks", "drinks");
+        tipos.put("offers", "offers");
 
         String tipoBD = tipos.get(tipo);
 
@@ -213,6 +261,7 @@ public class FireBaseOperations {
         tipos.put("burgers", "burgers");
         tipos.put("snacks-starters", "snacks-starters");
         tipos.put("drinks", "drinks");
+        tipos.put("offers", "offers");
 
         String tipoBD = tipos.get(tipo);
 
@@ -304,12 +353,12 @@ public class FireBaseOperations {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Address address = new Address(
+                            document.getId(),
                             document.getString("street").toString(),
                             document.getLong("number").intValue(),
                             document.getString("floor_stairs").toString(),
                             document.getString("city").toString(),
                             document.getLong("postal_code").intValue(),
-                            document.getString("province").toString(),
                             Boolean.parseBoolean(document.get("favorite").toString())
                     );
 
@@ -360,25 +409,40 @@ public class FireBaseOperations {
         pedidoData.put("confirmation_date", null);
         pedidoData.put("total_amount", 0.0);
 
-        CollectionReference customerRef = db.collection("customers");
-        customerRef
+        CollectionReference docRef = db.collection("customers")
                 .document(uid)
-                .collection("orders")
-                .add(pedidoData)
-                .addOnSuccessListener(documentReference -> {
-                    // Obtener la referencia del documento del pedido que acabas de crear
-                    String docId = documentReference.getId();
+                .collection("address");
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                long count = task.getResult().size();
+                if(count == 0){
+                    listener.onFailure("Es necesario añadir una dirección de envío.");
+                } else {
+                    CollectionReference customerRef = db.collection("customers");
+                    customerRef
+                            .document(uid)
+                            .collection("orders")
+                            .add(pedidoData)
+                            .addOnSuccessListener(documentReference -> {
+                                // Obtener la referencia del documento del pedido que acabas de crear
+                                String docId = documentReference.getId();
 
-                    // Obtener la referencia del documento del pedido que acabas de crear
-                    DocumentReference pedidoRef = documentReference;
+                                // Obtener la referencia del documento del pedido que acabas de crear
+                                DocumentReference pedidoRef = documentReference;
 
-                    // Crear una subcolección para los productos del pedido
-                    CollectionReference productosRef = pedidoRef.collection("order_lines");
+                                // Crear una subcolección para los productos del pedido
+                                CollectionReference productosRef = pedidoRef.collection("order_lines");
 
 
-                    listener.onSuccess(docId);
-                })
-                .addOnFailureListener(e -> listener.onSuccess(null));
+                                listener.onSuccess(docId);
+                            })
+                            .addOnFailureListener(e -> listener.onSuccess(null));
+                }
+            }
+        });
+
+
+
 
     }
 
@@ -503,9 +567,6 @@ public class FireBaseOperations {
 
                                         double newTotalAmount = currentTotalAmount - (food.getPrice() * food.getQuantity());
 
-                                        /*int numeroDecimales = 2;
-                                        double factor = Math.pow(10, numeroDecimales);
-                                        double newTotalAmountRounded = Math.floor(newTotalAmount * factor) / factor;*/
                                         // Error en la resta
                                         double umbral = 1e-10;
                                         if (Math.abs(newTotalAmount) < umbral) {
@@ -737,6 +798,28 @@ public class FireBaseOperations {
                 .addOnFailureListener(e -> Log.e(TAG, "Error al obtener los documentos a eliminar", e));
     }
 
+    public static void deleteOrder(String uid, String orderId, OnDeleteOrderListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference ordersRef = db.collection("customers")
+                .document(uid)
+                .collection("orders");
+
+        ordersRef.document(orderId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        listener.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        listener.onFailure(e);
+                    }
+                });
+    }
+
     public static void getFavouriteAddress(String uid, OnGetAddressListener listener) {
         ArrayList<Address> addresList = new ArrayList<Address>();
 
@@ -752,6 +835,7 @@ public class FireBaseOperations {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     if(document.getBoolean("favorite")){
                         Address address = new Address(
+                                document.getId(),
                                 document.getString("street"),
                                 document.getDouble("number").intValue(),
                                 document.getString("floor_stairs"),
@@ -789,6 +873,7 @@ public class FireBaseOperations {
                 for (QueryDocumentSnapshot document : task.getResult()) {
 
                     Address address = new Address(
+                            document.getId(),
                             document.getString("street"),
                             document.getDouble("number").intValue(),
                             document.getString("floor_stairs"),
@@ -839,6 +924,235 @@ public class FireBaseOperations {
                 Log.d(TAG, "Error al obtener los documentos: ", task.getException());
             }
         });
+    }
+
+    public static void createAddress(String uid, Address address, OnCreateUserListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Crea un mapa que contenga los campos y valores
+        Map<String, Object> data = new HashMap<>();
+        data.put("street", address.getStreet());
+        data.put("number", address.getNumber());
+        data.put("floor_stairs", address.getFloorStairs());
+        data.put("city", address.getCity());
+        data.put("postal_code", address.getPostCode());
+        data.put("favorite", address.isFavorite());
+
+
+        if(address.isFavorite()) {
+            CollectionReference docRef = db.collection("customers")
+                    .document(uid)
+                    .collection("address");
+
+            docRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    long count = task.getResult().size();
+                    if(count == 0) {
+                        CollectionReference docRef2 = db.collection("customers");
+                        docRef2
+                                .document(uid)
+                                .collection("address")
+                                .add(data)
+                                .addOnSuccessListener(documentReference -> {
+                                    listener.onSuccess();
+                                })
+                                .addOnFailureListener(e -> listener.onFailure(e));
+                    } else {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            boolean isFavorite = document.getBoolean("favorite");
+                            if (isFavorite) {
+                                String documentId = document.getId();
+                                DocumentReference addressRef = docRef.document(documentId);
+                                addressRef.update("favorite", false)
+                                        .addOnSuccessListener(aVoid -> {
+                                            CollectionReference docRef2 = db.collection("customers");
+                                            docRef2
+                                                    .document(uid)
+                                                    .collection("address")
+                                                    .add(data)
+                                                    .addOnSuccessListener(documentReference -> {
+                                                        listener.onSuccess();
+                                                    })
+                                                    .addOnFailureListener(e -> listener.onFailure(e));
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            listener.onFailure(e);
+                                        });
+                            }
+                        }
+                    }
+
+
+                } else {
+                    listener.onFailure(task.getException());
+                }
+            });
+
+        } else {
+            CollectionReference docRef = db.collection("customers")
+                    .document(uid)
+                    .collection("address");
+
+            docRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    long count = task.getResult().size();
+                    if(count == 0) {
+                        CollectionReference docRef2 = db.collection("customers");
+                        data.put("favorite", true);
+
+                        docRef2
+                                .document(uid)
+                                .collection("address")
+                                .add(data)
+                                .addOnSuccessListener(documentReference -> {
+                                    listener.onSuccess();
+                                })
+                                .addOnFailureListener(e -> listener.onFailure(e));
+                    } else {
+                        CollectionReference docRef2 = db.collection("customers");
+                        docRef2
+                                .document(uid)
+                                .collection("address")
+                                .add(data)
+                                .addOnSuccessListener(documentReference -> {
+                                    listener.onSuccess();
+                                })
+                                .addOnFailureListener(e -> listener.onFailure(e));
+                    }
+                } else {
+                    listener.onFailure(task.getException());
+                }
+            });
+
+
+
+        }
+
+
+
+    }
+
+    public static void updateAddress(String uid, String addressId, Address address, OnUpdateAddressListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Crea un mapa que contenga los campos y valores
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("street", address.getStreet());
+        updates.put("number", address.getNumber());
+        updates.put("floor_stairs", address.getFloorStairs());
+        updates.put("city", address.getCity());
+        updates.put("postal_code", address.getPostCode());
+        updates.put("favorite", address.isFavorite());
+
+        if(address.isFavorite()) {
+            CollectionReference docRef = db.collection("customers")
+                    .document(uid)
+                    .collection("address");
+
+            docRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        boolean isFavorite = document.getBoolean("favorite");
+                        if (isFavorite) {
+                            String documentId = document.getId();
+                            DocumentReference addressRef = docRef.document(documentId);
+                            addressRef.update("favorite", false)
+                                    .addOnSuccessListener(aVoid -> {
+                                        db.collection("customers")
+                                                .document(uid)
+                                                .collection("address")
+                                                .document(addressId)
+                                                .update(updates)
+                                                .addOnSuccessListener(documentReference -> {
+                                                    listener.onSuccess();
+                                                })
+                                                .addOnFailureListener(e -> listener.onFailure(e));
+                                    })
+                                    .addOnFailureListener(e -> listener.onFailure(e));
+                        }
+                    }
+                } else {
+                    listener.onFailure(task.getException());
+                }
+            });
+
+        } else {
+            db.collection("customers")
+                    .document(uid)
+                    .collection("address")
+                    .document(addressId)
+                    .update(updates)
+                    .addOnSuccessListener(documentReference -> {
+                        listener.onSuccess();
+                    })
+                    .addOnFailureListener(e -> listener.onFailure(e));
+        }
+
+
+
+    }
+
+    public static void deleteAddress(String uid, String addressId, OnDeleteOrderListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference ordersRef = db.collection("customers")
+                .document(uid)
+                .collection("address");
+
+        ordersRef.document(addressId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        listener.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        listener.onFailure(e);
+                    }
+                });
+    }
+
+    public static void updateFavouriteAddress(String uid, String addressId, OnUpdateAddressListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("favorite", true);
+
+
+        CollectionReference docRef = db.collection("customers")
+                .document(uid)
+                .collection("address");
+
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    boolean isFavorite = document.getBoolean("favorite");
+                    if (isFavorite) {
+                        String documentId = document.getId();
+                        DocumentReference addressRef = docRef.document(documentId);
+                        addressRef.update("favorite", false)
+                                .addOnSuccessListener(aVoid -> {
+                                    db.collection("customers")
+                                            .document(uid)
+                                            .collection("address")
+                                            .document(addressId)
+                                            .update(updates)
+                                            .addOnSuccessListener(documentReference -> {
+                                                listener.onSuccess();
+                                            })
+                                            .addOnFailureListener(e -> listener.onFailure(e));
+                                })
+                                .addOnFailureListener(e -> listener.onFailure(e));
+                    }
+                }
+            } else {
+                listener.onFailure(task.getException());
+            }
+        });
+
+
+
     }
 
 }

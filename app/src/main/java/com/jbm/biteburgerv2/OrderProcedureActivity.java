@@ -17,9 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.jbm.biteburgerv2.listeners.OnDeleteOrderListener;
+import com.jbm.biteburgerv2.operations.FireBaseOperations;
 import com.jbm.biteburgerv2.uiOrderProcedure.SeleccionarCategoriaPedidoFragment;
 import com.jbm.biteburgerv2.uiPaymentProcedure.RealizarPagoActivity;
 import com.jbm.biteburgerv2.uiPaymentProcedure.RevisarPedidoFragment;
@@ -37,11 +40,15 @@ public class OrderProcedureActivity extends AppCompatActivity {
     public boolean isSeleccionarCategoriaActive = false;
     public boolean isRevisarPedidoActive = false;
 
+    private String uid;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_procedure);
+
+        uid = FirebaseAuth.getInstance().getUid();
 
         // Obtener referencia a importePedido
         importePedido = findViewById(R.id.importePedido);
@@ -133,24 +140,34 @@ public class OrderProcedureActivity extends AppCompatActivity {
             isRevisarPedidoActive = false;
         }
 
-        if (isSeleccionarCategoriaActive){
+        if (isSeleccionarCategoriaActive) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Cancelar pedido");
-            builder.setMessage("¿Estás seguro de que quieres cancelar el pedido?");
-            builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //cancelOrder();
-                }
-            });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.show();
+            AlertDialog materialAlertDialogBuilder = new MaterialAlertDialogBuilder(OrderProcedureActivity.this)
+                    .setTitle("Cancelar pedido")
+                    .setMessage("¿Estás seguro de que quieres cancelar el pedido?")
+                    .setPositiveButton("Sí", (dialog, which) -> {
+
+                        FireBaseOperations.deleteOrder(uid, idOrder, new OnDeleteOrderListener() {
+                            @Override
+                            public void onSuccess() {
+                                Intent i = new Intent(OrderProcedureActivity.this, MainActivity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(i);
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+
+                            }
+                        });
+
+
+                    })
+                    .setNegativeButton("No", (dialog, which) -> {
+                        // Aquí puedes realizar acciones cuando se hace clic en el botón "Cancel"
+                    })
+                    .show();
+
         } else {
             super.onBackPressed();
         }

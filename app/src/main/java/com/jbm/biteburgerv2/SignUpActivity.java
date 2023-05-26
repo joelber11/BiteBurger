@@ -1,5 +1,9 @@
 package com.jbm.biteburgerv2;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +26,7 @@ import com.jbm.biteburgerv2.operations.FireBaseOperations;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -67,13 +72,13 @@ public class SignUpActivity extends AppCompatActivity {
 
             // Si no hay errores, creamos al usuario
             //if(err == 0) createUser(emailUser, passUser);
-            if(err == 0) createUser(emailUser, passUser, nombre.getText().toString(), apellidos.getText().toString(), fechaNac.getText().toString());
+            if(err == 0) createUser(view, emailUser, passUser, nombre.getText().toString(), apellidos.getText().toString(), fechaNac.getText().toString());
         }
     }
 
 
     // MÉTODOS PARA FIREBASE
-    public void createUser(String userEmail, String userPasswd, String name, String surname, String fechaNacTxt) {
+    public void createUser(View view, String userEmail, String userPasswd, String name, String surname, String fechaNacTxt) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(userEmail, userPasswd)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -97,7 +102,26 @@ public class SignUpActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess() {
                                     Toast.makeText(SignUpActivity.this, "Cuenta creada", Toast.LENGTH_LONG).show();
+
+                                    // Obtener el contexto actual
+                                    Context context = view.getContext();
+
+                                    // Obtener la clase del activity actual
+                                    Class<? extends Activity> currentActivityClass = (Class<? extends Activity>) context.getClass();
+
+                                    ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+                                    List<ActivityManager.AppTask> appTasks = activityManager.getAppTasks();
+                                    for (ActivityManager.AppTask appTask : appTasks) {
+                                        ActivityManager.RecentTaskInfo taskInfo = appTask.getTaskInfo();
+                                        ComponentName componentName = taskInfo.baseActivity;
+                                        String packageName = componentName.getPackageName();
+                                        if (!packageName.equals(context.getPackageName()) || !componentName.getClassName().equals(currentActivityClass.getName())) {
+                                            appTask.finishAndRemoveTask();
+                                        }
+                                    }
+
                                     Intent i = new Intent(SignUpActivity.this, MainActivity.class);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(i);
                                 }
 

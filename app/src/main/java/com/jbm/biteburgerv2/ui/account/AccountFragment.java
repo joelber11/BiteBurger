@@ -20,6 +20,7 @@ import com.jbm.biteburgerv2.DatosPersonalesActivity;
 import com.jbm.biteburgerv2.DireccionesActivity;
 import com.jbm.biteburgerv2.MainActivity;
 import com.jbm.biteburgerv2.SignUpActivity;
+import com.jbm.biteburgerv2.VerPedidosActivity;
 import com.jbm.biteburgerv2.databinding.FragmentAccountBinding;
 
 public class AccountFragment extends Fragment {
@@ -67,6 +68,14 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        LinearLayout linearLayout_verPedidos = binding.linearLayoutMisPedidos;
+        linearLayout_verPedidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startMisPedidos();
+            }
+        });
+
         LinearLayout linearLayout_acercaDe = binding.linearLayoutAcercaDe;
         linearLayout_acercaDe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +119,11 @@ public class AccountFragment extends Fragment {
 
     public void startDireccionesActivity() {
         Intent i = new Intent(getActivity(), DireccionesActivity.class);
+        startActivity(i);
+    }
+
+    public void startMisPedidos() {
+        Intent i = new Intent(getActivity(), VerPedidosActivity.class);
         startActivity(i);
     }
 

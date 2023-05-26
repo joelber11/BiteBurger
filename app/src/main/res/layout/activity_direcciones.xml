@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/fredoka_one"
+        android:onClick="abrirCrearDireccion"
         android:text="Añadir dirección"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

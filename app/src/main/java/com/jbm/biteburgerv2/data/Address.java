@@ -1,6 +1,9 @@
 package com.jbm.biteburgerv2.data;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
+    private String id;
     private String street;
     private int number;
     private String floorStairs;
@@ -12,7 +15,17 @@ public class Address {
     public Address() {
     }
 
-    public Address(String street, int number, String city, int postCode, String province, boolean favorite) {
+    public Address(String id, String street, int number, String city, int postCode, boolean favorite) {
+        this.id = id;
+        this.street = street;
+        this.number = number;
+        this.city = city;
+        this.postCode = postCode;
+        this.favorite = favorite;
+    }
+
+    public Address(String id, String street, int number, String city, int postCode, String province, boolean favorite) {
+        this.id = id;
         this.street = street;
         this.number = number;
         this.city = city;
@@ -21,7 +34,18 @@ public class Address {
         this.favorite = favorite;
     }
 
-    public Address(String street, int number, String floorStairs, String city, int postCode, String province, boolean favorite) {
+    public Address(String id, String street, int number, String floorStairs, String city, int postCode, boolean favorite) {
+        this.id = id;
+        this.street = street;
+        this.number = number;
+        this.floorStairs = floorStairs;
+        this.city = city;
+        this.postCode = postCode;
+        this.favorite = favorite;
+    }
+
+    public Address(String id, String street, int number, String floorStairs, String city, int postCode, String province, boolean favorite) {
+        this.id = id;
         this.street = street;
         this.number = number;
         this.floorStairs = floorStairs;
@@ -31,6 +55,14 @@ public class Address {
         this.favorite = favorite;
     }
 
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getStreet() {
         return street;

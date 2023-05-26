@@ -2,6 +2,10 @@ package com.jbm.biteburgerv2;
 
 import static com.jbm.biteburgerv2.DataOperations.getUser;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +24,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.jbm.biteburgerv2.data.User;
 import com.jbm.biteburgerv2.listeners.OnLoginUserListener;
 import com.jbm.biteburgerv2.operations.FireBaseOperations;
+
+import java.util.List;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -60,7 +66,26 @@ public class AuthActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess() {
                     // Ha iniciado sesión correctamente
+
+                    // Obtener el contexto actual
+                    Context context = view.getContext();
+
+                    // Obtener la clase del activity actual
+                    Class<? extends Activity> currentActivityClass = (Class<? extends Activity>) context.getClass();
+
+                    ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+                    List<ActivityManager.AppTask> appTasks = activityManager.getAppTasks();
+                    for (ActivityManager.AppTask appTask : appTasks) {
+                        ActivityManager.RecentTaskInfo taskInfo = appTask.getTaskInfo();
+                        ComponentName componentName = taskInfo.baseActivity;
+                        String packageName = componentName.getPackageName();
+                        if (!packageName.equals(context.getPackageName()) || !componentName.getClassName().equals(currentActivityClass.getName())) {
+                            appTask.finishAndRemoveTask();
+                        }
+                    }
+
                     Intent i = new Intent(AuthActivity.this, MainActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);
                 }
 
@@ -71,7 +96,6 @@ public class AuthActivity extends AppCompatActivity {
                 }
             });
 
-            //loginUser(emailUser, passUser);
         }
     }
 

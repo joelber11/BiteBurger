@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -31,11 +33,19 @@ import com.jbm.biteburgerv2.OrderProcedureActivity;
 import com.jbm.biteburgerv2.PedidoSeleccionarCategoriaComidaActivity;
 import com.jbm.biteburgerv2.R;
 import com.jbm.biteburgerv2.VerPedidosActivity;
+import com.jbm.biteburgerv2.adapters.AdapterAddressList;
+import com.jbm.biteburgerv2.adapters.AdapterFoodMenu;
+import com.jbm.biteburgerv2.adapters.AdapterOffersList;
+import com.jbm.biteburgerv2.data.Food;
 import com.jbm.biteburgerv2.databinding.FragmentHomeBinding;
 import com.jbm.biteburgerv2.listeners.OnCreateOrderListener;
 import com.jbm.biteburgerv2.listeners.OnDeleteOrderListener;
+import com.jbm.biteburgerv2.listeners.OnFoodListListener;
+import com.jbm.biteburgerv2.listeners.OnOffersListListener;
 import com.jbm.biteburgerv2.operations.FireBaseOperations;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
@@ -48,6 +58,8 @@ public class HomeFragment extends Fragment {
 
         final String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        AdapterOffersList adaptador = null;
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -55,6 +67,18 @@ public class HomeFragment extends Fragment {
         homeViewModel.getUserName().observe(getViewLifecycleOwner(), userTextView::setText);
         final TextView pointsTextView = binding.homePuntos;
         homeViewModel.getUserPoints().observe(getViewLifecycleOwner(), pointsTextView::setText);
+
+
+        /* -- RELLENAR EL LIST VIEW -- */
+        final ListView lv = binding.listaOfertas;
+
+        FireBaseOperations.listTypeFood("Ofertas", adaptador, new OnOffersListListener() {
+            @Override
+            public void onComplete(ArrayList<Food> foodList, AdapterOffersList adaptador) {
+                adaptador = new AdapterOffersList(getContext(), foodList);
+                lv.setAdapter(adaptador);
+            }
+        });
 
 
         // LISTENERS PARA LOS TEXTOS/BOTONES
@@ -105,31 +129,24 @@ public class HomeFragment extends Fragment {
         btnCrearPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String uid = FirebaseAuth.getInstance().getUid();
-                FireBaseOperations.deleteFailOrders(uid, new OnDeleteOrderListener() {
+                FireBaseOperations.createOrder(UID, new OnCreateOrderListener() {
                     @Override
-                    public void onSuccess() {
-                        FireBaseOperations.createOrder(UID, new OnCreateOrderListener() {
-                            @Override
-                            public void onSuccess(String docId) {
-                                if (docId != null) {
-                                    Intent i = new Intent(getActivity(), OrderProcedureActivity.class);
-                                    i.putExtra("idPedido", docId);
-                                    startActivity(i);
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Exception e) {
-                                System.out.println("\nNo se ha podido crear el pedido\n");
-                            }
-                        });
-
+                    public void onSuccess(String docId) {
+                        if (docId != null) {
+                            Intent i = new Intent(getActivity(), OrderProcedureActivity.class);
+                            i.putExtra("idPedido", docId);
+                            startActivity(i);
+                        }
                     }
 
                     @Override
                     public void onFailure(Exception e) {
                         System.out.println("\nNo se ha podido crear el pedido\n");
+                    }
+
+                    @Override
+                    public void onFailure(String mensaje) {
+                        Toast.makeText(getContext(), mensaje, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -149,14 +166,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-
-
-        // Eliminar junto con su xml
-        final TextView mailTextView = binding.emailTextView;
-        homeViewModel.getUserEmail().observe(getViewLifecycleOwner(), mailTextView::setText);
-        final TextView provTextView = binding.providerTextView;
-        homeViewModel.getUserProvider().observe(getViewLifecycleOwner(), provTextView::setText);
 
         return root;
     }
